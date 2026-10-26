@@ -5,12 +5,23 @@ import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import { WORKS, SECTION_COVERS, type WorkListItem, type WorkSection, type WorksLang } from '../data/works'
 import { getWorkDoc } from '../data/workDocs'
+import { dirOf, type Lang } from '../i18n'
 
 const EASE = [0.22, 1, 0.36, 1]
 
 // 极简清单的一行：作品名靠左、数据(播放量/标签)靠右、发丝线分隔；整行可点开全屏详情
 function WorkLine({ item, onOpen }: { item: WorkListItem; onOpen: (item: WorkListItem) => void }) {
   const hasMeta = item.meta || (item.tags && item.tags.length)
+  // 无 slug / link：纯展示的要点，不可点开详情
+  if (!item.slug && !item.link) {
+    return (
+      <li className="wk-line">
+        <span className="wk-line-btn is-static">
+          <span className="wk-line-name">{item.name}</span>
+        </span>
+      </li>
+    )
+  }
   return (
     <li className="wk-line">
       <button className="wk-line-btn" onClick={() => onOpen(item)}>
@@ -44,7 +55,7 @@ function SectionCard({
   const [coverError, setCoverError] = useState(false)
   const cover = SECTION_COVERS[section.id]
   return (
-    <div className="wk-card">
+    <div className="wk-card" dir={data.dir}>
       <div className="wk-card-head">
         <span className="wk-card-no">{section.no}</span>
         <h3 className="wk-card-title">{section.title}</h3>
@@ -163,7 +174,7 @@ function WorkDetail({
           </div>
         )}
 
-        <article className="wk-detail-article">
+        <article className="wk-detail-article" dir={data.dir}>
           <header className="wk-detail-head">
             <h3 className="wk-detail-title">{title}</h3>
             {sub && <div className="wk-detail-sub">{sub}</div>}
@@ -213,8 +224,9 @@ function WorkDetail({
   )
 }
 
-export default function Works({ lang, innerRef }: { lang: 'en' | 'zh'; innerRef: Ref<HTMLElement> }) {
-  const data = WORKS[lang]
+export default function Works({ lang, innerRef }: { lang: Lang; innerRef: Ref<HTMLElement> }) {
+  // dir 只加在卡片 / 详情文字上，横向画廊轨道本身保持 LTR（横移方向不变）
+  const data = { ...WORKS[lang], dir: dirOf(lang) }
   const sections = data.sections
   const count = sections.length
 

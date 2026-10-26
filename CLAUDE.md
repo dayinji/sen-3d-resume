@@ -30,7 +30,7 @@ No tests. Linting is `npm run lint` (lightweight ESLint, `no-explicit-any` disab
 
 - **Pure front-end SPA**: `index.html` → `src/main.tsx` → `src/App.tsx` (one fixed `<Canvas>` 3D background + a scrollable HTML overlay). No backend, no router.
 - **3D background**: `src/scene/Scene.tsx` — loads `public/models/me.glb` and, using the glb's own camera animation, wipes through it in 5 scroll-driven segments, layering auto-focus depth-of-field and eye-follows-cursor on top. Lighting comes from `src/scene/Env.tsx` (`public/textures/env.hdr` as IBL).
-- **Scroll content**: `Hero` in `App.tsx` (About copy lives in `COPY`) → `src/ui/Resume.tsx` (résumé timeline) → `src/ui/Works.tsx` (works gallery + detail modal).
+- **Scroll content**: `Hero` in `App.tsx` (About copy lives in `COPY`) → `src/ui/Resume.tsx` (résumé timeline) → `src/ui/Works.tsx` (works gallery + detail modal) → `src/ui/Closing.tsx` (about / vision / contact + footer). Site language is Arabic (RTL) only; the `Lang` type and `dirOf` live in `src/i18n.ts`.
 - **Overlays**: `LoadingScreen` (masks the screen until the model finishes loading), `NoiseOverlay` (film grain), scroll-darken / frosted right rail / hero decorative frame (all in `App.tsx`).
 - **Global state**: `src/store.ts` (zustand, lightweight).
 

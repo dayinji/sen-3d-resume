@@ -1531,3 +1531,211 @@ canvas {
     font-size: 11.5px;
   }
 }
+
+/* ---------- العربية（阿拉伯语，RTL） ----------
+   只给文字块加 dir="rtl"，整页布局（3D 模型、右侧时间轴、横向画廊）不翻转 */
+[lang='ar'] {
+  font-family: 'Tajawal', 'Helvetica Neue', system-ui, sans-serif;
+  letter-spacing: 0;
+}
+.about[lang='ar'] .about-title,
+.resume[lang='ar'] .resume-title,
+.works[lang='ar'] .wk-gallery-title,
+.works[lang='ar'] .wk-card-title,
+.works[lang='ar'] .wk-detail-title {
+  font-family: 'Reem Kufi', 'Tajawal', sans-serif;
+  letter-spacing: 0 !important; /* 阿拉伯字母相连，拉开字距会断字 */
+}
+.about[lang='ar'] .about-body {
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 400;
+  font-size: clamp(10px, 1.05vw, 15px);
+  line-height: 1.9;
+}
+.lang-toggle {
+  font-family: 'Tajawal', 'Helvetica Neue', 'Chiron GoRound TC', system-ui, sans-serif;
+}
+
+/* 履历：时间线与圆点移到右侧，正文右对齐 */
+.resume[dir='rtl'] .resume-title {
+  text-align: right;
+}
+.resume[dir='rtl'] .timeline::before {
+  left: auto;
+  right: 5px;
+}
+.resume[dir='rtl'] .tl-entry {
+  padding-left: 0;
+  padding-right: 34px;
+}
+.resume[dir='rtl'] .tl-dot {
+  left: auto;
+  right: 0;
+}
+.resume[dir='rtl'] .tl-period {
+  letter-spacing: 0.04em;
+}
+.resume[dir='rtl'] .tl-points li {
+  padding-left: 0;
+  padding-right: 1.1em;
+  line-height: 1.8;
+}
+.resume[dir='rtl'] .tl-points li::before {
+  left: auto;
+  right: 0;
+}
+
+/* 作品卡片 / 详情 */
+.wk-card[dir='rtl'] {
+  text-align: right;
+}
+.wk-card[dir='rtl'] .wk-line-btn {
+  text-align: right;
+  transition: padding-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wk-card[dir='rtl'] .wk-line-btn:hover,
+.wk-card[dir='rtl'] .wk-line-btn:focus-visible {
+  padding-left: 0;
+  padding-right: 10px;
+}
+.wk-card[dir='rtl'] .wk-line-meta {
+  text-align: left;
+}
+.wk-card[dir='rtl'] .wk-line-tag::before {
+  margin-right: 0;
+  margin-left: 0.6em;
+}
+.wk-card[dir='rtl'] .wk-foot-label {
+  margin-right: 0;
+  margin-left: 1.2em;
+}
+.wk-detail-article[dir='rtl'] .wk-md ul,
+.wk-detail-article[dir='rtl'] .wk-md ol {
+  padding-left: 0;
+  padding-right: 1.3em;
+}
+.wk-detail-article[dir='rtl'] .wk-md blockquote {
+  padding: 0.2em 1.1em 0.2em 0;
+  border-left: none;
+  border-right: 2px solid rgba(255, 217, 179, 0.5);
+}
+
+/* 窄屏 RTL：时间轴 min(480px,90vw) 比 .resume 内容区宽，会溢出左缘；
+   RTL 下文字在左侧，会被裁切 —— 改为撑满内容区 */
+@media (max-width: 640px) {
+  .resume[dir='rtl'] .resume-title,
+  .resume[dir='rtl'] .timeline {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* ---------- 收尾：من أنا / رؤيتي / لنعمل معًا ---------- */
+.closing {
+  position: relative;
+  background: rgba(13, 17, 25, 0.88);
+  border-top: 1px solid var(--line);
+  padding: clamp(72px, 14vh, 160px) 24px clamp(40px, 8vh, 80px);
+}
+.closing-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 10vh, 110px);
+}
+.closing-title {
+  font-family: 'Reem Kufi', 'Tajawal', sans-serif;
+  font-weight: 600;
+  font-size: clamp(26px, 4vw, 44px);
+  color: var(--ink);
+  margin-bottom: 0.7em;
+}
+.closing-p {
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.95;
+  color: rgba(244, 241, 234, 0.84);
+  margin-bottom: 0.9em;
+}
+.closing-accent {
+  color: #ffd9b3;
+  font-weight: 500;
+}
+.closing-contacts {
+  list-style: none;
+  margin-top: 1.6em;
+  border-top: 1px solid var(--line);
+}
+.closing-contacts li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(244, 241, 234, 0.09);
+  font-size: clamp(14px, 1.4vw, 16px);
+}
+.closing-contact-label {
+  color: var(--muted);
+}
+.closing-contacts a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 217, 179, 0.4);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.closing-contacts a:hover {
+  color: #ffd9b3;
+  border-bottom-color: #ffd9b3;
+}
+.closing-contact-pending {
+  color: rgba(244, 241, 234, 0.35);
+}
+.closing-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: rgba(244, 241, 234, 0.45);
+}
+
+/* 服务要点：纯展示行（不可点），去掉 hover 缩进 */
+.wk-line-btn.is-static {
+  cursor: default;
+}
+.wk-line-btn.is-static:hover {
+  padding-left: 0;
+  padding-right: 0;
+}
+.wk-line-btn.is-static:hover .wk-line-name {
+  color: rgba(244, 241, 234, 0.9);
+}
+/* 端口号标签用等宽字体 */
+.works[lang='ar'] .wk-card-tagline {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* 阿拉伯字母相连：角标 / 提示等小字的字距会把字母拆开 */
+.hero-chrome[dir='rtl'] .hero-meta {
+  font-family: 'Tajawal', 'Helvetica Neue', system-ui, sans-serif;
+}
+.hero-chrome[dir='rtl'] .hero-meta,
+.about[lang='ar'] ~ .scroll-cue .scroll-cue-label,
+.works[lang='ar'] .wk-hint,
+.works[lang='ar'] .wk-line-name {
+  letter-spacing: 0;
+}
+/* 首屏主句：比正文更大更醒目 */
+.about[lang='ar'] .about-lead {
+  font-family: 'Reem Kufi', 'Tajawal', sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.6vw, 22px);
+  line-height: 1.6;
+  color: #ffd9b3;
+}

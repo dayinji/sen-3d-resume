@@ -2,26 +2,9 @@ import { motion } from 'framer-motion'
 import { ZooopLogo } from './ZooopLogo'
 import { SOCIAL_ICONS } from './SocialIcons'
 import { FOCUS_POINTS } from '../data/focusPoints'
+import { dirOf, type Lang } from '../i18n'
 
-const SOCIAL_LINKS = [
-  {
-    id: 'douyin',
-    label: '抖音',
-    href: 'https://www.douyin.com/user/MS4wLjABAAAAlmQDgHf0NlbsjrfWENm8LyrIikxSRRq7mzlzQSIStQJkV7Ju52B6A55zw5TUDU5d',
-  },
-  {
-    id: 'bilibili',
-    label: 'B站',
-    href: 'https://space.bilibili.com/275344092?spm_id_from=333.937.0.0',
-  },
-  {
-    id: 'xiaohongshu',
-    label: '小红书',
-    href: 'https://www.xiaohongshu.com/user/profile/5ceba8c8000000000502fd69',
-  },
-]
-
-// 履历数据（双语）。英文为译稿，可按需润色。
+// 履历数据（按语言）。
 interface ResumeGroup {
   heading?: string
   logo?: string
@@ -39,104 +22,54 @@ interface ResumeEntry {
   points?: string[]
   groups?: ResumeGroup[]
 }
-const RESUME: Record<'en' | 'zh', { title: string; entries: ResumeEntry[] }> = {
-  en: {
-    title: 'Résumé',
+const RESUME: Record<Lang, { title: string; entries: ResumeEntry[] }> = {
+  ar: {
+    title: 'رحلتي في عالم التقنية',
     entries: [
       {
-        period: '2013 – 2017',
-        place: 'Sun Yat-sen University',
-        role: 'B.S. in Software Engineering',
-      },
-      {
-        period: '2017 – 2020',
-        place: 'HOTSAR Studio · Shanghai',
-        role: 'Co-founder',
-        logo: { src: `${import.meta.env.BASE_URL}images/hotsar.jpg`, alt: 'HOTSAR' },
+        period: '01 — 2017',
+        place: 'البداية',
         points: [
-          'Co-founder · team of 20+',
-          'Clients: Alibaba brands, Tencent, NetEase, DiDi, China Resources, McDonald’s…',
-          'Work: development / creative direction / animation / team management',
+          'بدأت رحلتي مع أول سطر برمجي، مدفوعًا بالفضول والرغبة في فهم كيفية عمل البرامج والأنظمة. ومع الوقت، تحوّل هذا الفضول إلى شغف مستمر بتطوير البرمجيات وبناء الحلول التقنية.',
         ],
       },
       {
-        period: '2020 – 2025',
-        place: 'Bad Printer Studio · Shenzhen',
-        role: 'Founder',
-        logo: { src: `${import.meta.env.BASE_URL}images/bp.png`, alt: 'Bad Printer Studio' },
+        period: '02',
+        place: 'تطوير الويب',
         points: [
-          'Founder · team of 14',
-          'Clients: Honor of Kings / Trip.com / ByteDance / Kuaishou / VIVO / Tecno / Xiaomi / IM Motors…',
-          'Work: team management / creative direction / animation / development',
+          'أطوّر مواقع وتطبيقات ويب تجمع بين التصميم الأنيق والأداء السريع والتوافق مع مختلف الأجهزة، من واجهات المستخدم إلى الخوادم وقواعد البيانات، مع الاهتمام بالأمان منذ المراحل الأولى للتطوير.',
         ],
       },
       {
-        period: '2025 – Now',
-        place: 'Content Creator',
+        period: '03',
+        place: 'بوتات تيليغرام',
+        points: [
+          'أحوّل المهام المتكررة إلى عمليات مؤتمتة من خلال تطوير بوتات تيليغرام ذكية وعملية، تشمل الردود التلقائية، وإدارة المجموعات والقنوات، وتنظيم الطلبات، والتكامل مع قواعد البيانات والواجهات البرمجية.',
+        ],
+      },
+      {
+        period: '04',
+        place: 'الأمن السيبراني',
+        points: [
+          'أهتم بفهم الأنظمة من منظور أمني، واختبار تطبيقات الويب لاكتشاف الثغرات ضمن نطاق مصرح به، وتحليل المشكلات الأمنية، وإعداد تقارير واضحة تتضمن النتائج والتوصيات المناسبة لمعالجتها.',
+        ],
+      },
+      {
+        // glb 只有 5 个时间轴锚点：「مشاريع المبرمجين」与「اليوم」合为最后一条
+        period: '05 — 06',
+        place: 'مشاريع المبرمجين',
+        points: [
+          'أؤمن بأن الأفكار التقنية تستحق فرصة لتصبح مشاريع حقيقية. لذلك أهتم بتطوير مشاريع المبرمجين، والمساهمة في تحسين الشيفرات والميزات، وتطوير الأنظمة القائمة، وتحويل التصورات الأولية إلى تطبيقات عملية قابلة للتطوير.',
+          'سواء كان المشروع في بدايته أو يحتاج إلى إعادة تنظيم وتطوير، فإن الهدف هو الوصول إلى نتيجة عملية تجمع بين جودة التنفيذ وسهولة الاستخدام وقابلية التوسع.',
+        ],
         groups: [
           {
-            heading: '小郑还挺忙',
-            logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
-            sub: 'tech-DIY creator',
-            items: ['120K on Douyin · 87K on Bilibili · 23K on Xiaohongshu'],
-            links: SOCIAL_LINKS,
+            heading: 'اليوم',
+            items: [
+              'أواصل العمل على تطوير الويب وبوتات تيليغرام، واستكشاف مجالات الأمن السيبراني واختبار الاختراق، إلى جانب تطوير المشاريع البرمجية ومواصلة التعلم واكتساب الخبرات الجديدة.',
+            ],
           },
         ],
-      },
-      {
-        period: '2026 – Now',
-        place: 'Indie Developer',
-        groups: [{ logo: 'zooop', sub: 'AI creation platform', link: 'https://zooop.ai/' }],
-      },
-    ],
-  },
-  zh: {
-    title: 'Résumé',
-    entries: [
-      {
-        period: '2013 – 2017',
-        place: '中山大学',
-        role: '软件工程 · 本科',
-      },
-      {
-        period: '2017 – 2020',
-        place: 'HOTSAR 工作室 · 上海',
-        role: '联合创始人',
-        logo: { src: `${import.meta.env.BASE_URL}images/hotsar.jpg`, alt: 'HOTSAR' },
-        points: [
-          '联合创始人，团队人数 20+',
-          '服务客户：阿里系品牌、腾讯、网易、滴滴、华润、麦当劳…',
-          '负责：技术开发 / 创意策划 / 动画制作 / 团队管理',
-        ],
-      },
-      {
-        period: '2020 – 2025',
-        place: '坏打印机工作室 · 深圳',
-        role: '创始人',
-        logo: { src: `${import.meta.env.BASE_URL}images/bp.png`, alt: '坏打印机工作室' },
-        points: [
-          '创始人，团队人数 14',
-          '服务客户：王者荣耀 / 携程 / 字节 / 快手 / VIVO / 传音 / 小米…',
-          '负责：团队管理 / 创意策划 / 动画制作 / 技术开发',
-        ],
-      },
-      {
-        period: '2025 – 至今',
-        place: '自媒体博主',
-        groups: [
-          {
-            heading: '小郑还挺忙',
-            logoImg: `${import.meta.env.BASE_URL}images/buzyzheng.png`,
-            sub: '科技 DIY 博主',
-            items: ['抖音 12 万 · B站 8.7 万 · 小红书 2.3 万 关注'],
-            links: SOCIAL_LINKS,
-          },
-        ],
-      },
-      {
-        period: '2026 – 至今',
-        place: '独立开发',
-        groups: [{ logo: 'zooop', sub: 'AI 创作平台', link: 'https://zooop.ai/' }],
       },
     ],
   },
@@ -263,10 +196,10 @@ function Entry({ entry, index }: { entry: ResumeEntry; index: number }) {
   )
 }
 
-export default function Resume({ lang }: { lang: 'en' | 'zh' }) {
+export default function Resume({ lang }: { lang: Lang }) {
   const data = RESUME[lang]
   return (
-    <section className="resume" lang={lang}>
+    <section className="resume" lang={lang} dir={dirOf(lang)}>
       <motion.h2
         className="resume-title"
         initial={{ opacity: 0, y: 20 }}
